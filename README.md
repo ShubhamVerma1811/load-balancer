@@ -21,3 +21,4 @@ I am doing this as I am getting into learning GO and distributed systems, so I t
 
 - https://samwho.dev/load-balancing/
 - https://kasvith.me/posts/lets-create-a-simple-lb-go/
+- and some LLM.

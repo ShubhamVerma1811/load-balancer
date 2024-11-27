@@ -46,7 +46,7 @@ func (server *Server) create() {
 		Addr:    server.port,
 		Handler: mux,
 		ConnState: func(c net.Conn, cs http.ConnState) {
-			log.Printf("Connection state: %s\n", cs)
+			//	log.Printf("Connection state: %s\n", cs)
 		},
 	}
 

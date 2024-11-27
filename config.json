@@ -1,6 +1,6 @@
 {
   "balancer": {
-    "name": "Load Balancer 1",
+    "name": "Load Balancer",
     "port": "8080",
     "servers": [
       {

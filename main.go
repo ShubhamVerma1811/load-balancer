@@ -49,8 +49,8 @@ func main() {
 
 	// TODO:: Add config support for load balancer
 	lb := NewLoadBalancer(LoadBalancer{
-		name:          "Load Balancer 1",
-		port:          fmt.Sprintf(":%d", 8080),
+		name:          config.Balancer.Name,
+		port:          fmt.Sprintf(":%s", config.Balancer.Port),
 		servers:       &servers,
 		balancingAlgo: &RoundRobinBalancer{},
 	})

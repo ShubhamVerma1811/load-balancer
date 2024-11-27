@@ -1,0 +1,43 @@
+{
+  "balancer": {
+    "name": "Load Balancer 1",
+    "port": "8080",
+    "servers": [
+      {
+        "name": "Server 1",
+        "port": "1111"
+      },
+      {
+        "name": "Server 2",
+        "port": "2222"
+      },
+      {
+        "name": "Server 3",
+        "port": "3333"
+      },
+      {
+        "name": "Server 4",
+        "port": "4444"
+      }
+    ],
+    "type": "round-robin"
+  },
+  "servers": [
+    {
+      "name": "Server 1",
+      "port": "1111"
+    },
+    {
+      "name": "Server 2",
+      "port": "2222"
+    },
+    {
+      "name": "Server 3",
+      "port": "3333"
+    },
+    {
+      "name": "Server 4",
+      "port": "4444"
+    }
+  ]
+}

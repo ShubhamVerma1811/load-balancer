@@ -1,10 +1,10 @@
 package main
 
 import (
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"log"
-	"os"
 )
 
 type ConfigFile struct {
@@ -24,10 +24,13 @@ type ConfigFileBalancer struct {
 	Servers []ConfigFileServer `json:"servers"`
 }
 
+//go:embed config.json
+var configFile []byte
+
 func main() {
 	log.Println("Starting load balancer system...")
 
-	config, err := ParseConfigFile("config.json")
+	config, err := ParseConfigFile(&configFile)
 
 	if err != nil {
 		log.Fatalf("Error parsing config file: %v\n", err)
@@ -55,15 +58,10 @@ func main() {
 	startLoadBalancer(lb)
 }
 
-func ParseConfigFile(fileName string) (ConfigFile, error) {
+func ParseConfigFile(file *[]byte) (ConfigFile, error) {
 	var config ConfigFile
 
-	file, err := os.ReadFile(fileName)
-	if err != nil {
-		return ConfigFile{}, err
-	}
-
-	err = json.Unmarshal(file, &config)
+	err := json.Unmarshal(*file, &config)
 
 	if err != nil {
 		return ConfigFile{}, err

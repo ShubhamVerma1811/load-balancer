@@ -1,7 +1,6 @@
 My attmept to implement a load balancer in GO.
 I am doing this as I am getting into learning GO and distributed systems, so I thought it be a good way to get good at both the concepts and the language.
 
-
 https://github.com/user-attachments/assets/97000304-2cef-4355-9906-b8ef74f4fb67
 
 ---
@@ -17,7 +16,7 @@ https://github.com/user-attachments/assets/97000304-2cef-4355-9906-b8ef74f4fb67
 - [ ] Have a NGINX like config file
   - [x] parse server data from the config
   - [ ] parse balancer data from the config
-- [ ] Add a health check
+- [x] Add a health check
 - [ ] Add a retry mechanism
 - [ ] Add a rate limiter (I've built one at [here](https://github.com/ShubhamVerma1811/rate-limiter-go-redis), maybe I can use it here)
 - [ ] Better logging

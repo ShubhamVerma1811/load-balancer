@@ -39,8 +39,9 @@ func main() {
 	servers := make([]Server, len(config.Servers))
 	for i, server := range config.Servers {
 		servers[i] = Server{
-			port: fmt.Sprintf(":%s", server.Port),
-			name: server.Name,
+			port:      fmt.Sprintf(":%s", server.Port),
+			name:      server.Name,
+			isHealthy: true,
 		}
 	}
 

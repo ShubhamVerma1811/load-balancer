@@ -79,6 +79,15 @@ func (lb *LoadBalancer) Start() error {
 func (rb *RoundRobinBalancer) getServer(servers *[]Server) (string, error) {
 	current := atomic.AddInt32(&rb.currentIdx, 1)
 	idx := int(current) % len(*servers)
+
+	for {
+		if (*servers)[idx].isHealthy {
+			break
+		}
+		idx = (idx + 1) % len(*servers)
+		log.Printf("Server %s is not healthy, trying next one\n", (*servers)[idx].name)
+	}
+
 	return HOST + (*servers)[idx].port, nil
 }
 

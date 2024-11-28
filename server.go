@@ -3,18 +3,17 @@ package main
 import (
 	"io"
 	"log"
-	"net"
 	"net/http"
 	"net/url"
 	"strconv"
 	"sync"
 )
 
-// TODO:: health checks
 type Server struct {
-	url  url.URL
-	port string
-	name string
+	url       url.URL
+	port      string
+	name      string
+	isHealthy bool
 }
 
 func startServers(servers []Server) {
@@ -41,13 +40,19 @@ func (server *Server) create() {
 		io.WriteString(w, "Serving from the server: "+server.name)
 	})
 
-	// TODO:: to figure out how to know active connections for the weighting algo
+	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		if server.isHealthy {
+			w.WriteHeader(http.StatusOK)
+			io.WriteString(w, "healthy")
+		} else {
+			w.WriteHeader(http.StatusServiceUnavailable)
+			io.WriteString(w, "unhealthy")
+		}
+	})
+
 	srv := &http.Server{
 		Addr:    server.port,
 		Handler: mux,
-		ConnState: func(c net.Conn, cs http.ConnState) {
-			//	log.Printf("Connection state: %s\n", cs)
-		},
 	}
 
 	log.Printf("Server %s listening on %s\n", server.name, server.port)
@@ -57,13 +62,3 @@ func (server *Server) create() {
 		log.Fatalf("Error starting server: %v\n", err)
 	}
 }
-
-// func logRequestDetails(r *http.Request) {
-// 	fmt.Printf("Received request from %s\n", r.RemoteAddr)
-// 	fmt.Printf("%s %s %s\n", r.Method, r.URL, r.Proto)
-// 	for name, values := range r.Header {
-// 		for _, value := range values {
-// 			fmt.Printf("%s: %s\n", name, value)
-// 		}
-// 	}
-// }

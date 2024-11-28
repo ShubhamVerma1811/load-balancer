@@ -1,9 +1,7 @@
 My attmept to implement a load balancer in GO.
 I am doing this as I am getting into learning GO and distributed systems, so I thought it be a good way to get good at both the concepts and the language.
 
-https://github.com/user-attachments/assets/97000304-2cef-4355-9906-b8ef74f4fb67
-
----
+## <video src="https://github.com/user-attachments/assets/97000304-2cef-4355-9906-b8ef74f4fb67" controls />
 
 ## TODO
 

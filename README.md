@@ -21,6 +21,11 @@ https://github.com/user-attachments/assets/97000304-2cef-4355-9906-b8ef74f4fb67
 - [ ] Add a rate limiter (I've built one at [here](https://github.com/ShubhamVerma1811/rate-limiter-go-redis), maybe I can use it here)
 - [ ] Better logging
 
+## Usage
+
+- Navigate to the `loadbalancer` folder and run `go run main.go` to start the load balancer.
+- For mock servers, navigate to the `server` folder and run `go run main.go` to start the mock servers.
+
 ## References
 
 - https://samwho.dev/load-balancing/

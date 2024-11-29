@@ -87,22 +87,26 @@ func (lb *LoadBalancer) Start() error {
 	return http.ListenAndServe(lb.Port, mux)
 }
 
-func (rb *RoundRobinBalancer) getServer(servers *[]Server) (string, error) {
+func (rb *RoundRobinBalancer) getServer(servers *[]Server) (serverUrl string, err error) {
 	current := atomic.AddInt32(&rb.currentIdx, 1)
 	idx := int(current) % len(*servers)
 
-	for {
+	serverCount := len(*servers)
+	triesLeft := serverCount
+
+	for triesLeft > 0 {
 		if (*servers)[idx].IsHealthy {
-			break
+			return HOST + (*servers)[idx].Port, nil
 		}
-		idx = (idx + 1) % len(*servers)
 		log.Printf("Server %s is not healthy, trying next one\n", (*servers)[idx].Name)
+		idx = (idx + 1) % len(*servers)
+		triesLeft--
 	}
 
-	return HOST + (*servers)[idx].Port, nil
+	return "", fmt.Errorf("no healthy servers available after trying all %d servers", serverCount)
 }
 
-func (lb *LoadBalancer) getServer(algo BalancingAlgorithm) (string, error) {
+func (lb *LoadBalancer) getServer(algo BalancingAlgorithm) (serverUrl string, err error) {
 	return algo.getServer(lb.Servers)
 }
 
